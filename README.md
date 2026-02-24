@@ -1,21 +1,11 @@
-using System;
+CREATE DATABASE Company;
+GO
 
-namespace ContactForm
-{
-    public partial class Default : System.Web.UI.Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+USE Company;
 
-        }
-
-        protected void btnSubmit_Click(object sender, EventArgs e)
-        {
-            string name = txtName.Text;
-            string email = txtEmail.Text;
-            string phone = txtPhone.Text;
-
-            Response.Write("<script>alert('Form Submitted Successfully!');</script>");
-        }
-    }
-}
+CREATE TABLE ContactForm (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100),
+    Email NVARCHAR(100),
+    Phone NVARCHAR(15)
+);
