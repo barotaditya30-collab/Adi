@@ -1,15 +1,25 @@
-<?xml version="1.0"?>
+using System.Data.SqlClient;
+using System.Configuration;
 
-<configuration>
+protected void btnSubmit_Click(object sender, EventArgs e)
+{
+    string cs = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 
-  <connectionStrings>
-    <add name="con"
-         connectionString="Data Source=.;Initial Catalog=NewJointee_TestDB;Integrated Security=True"
-         providerName="System.Data.SqlClient" />
-  </connectionStrings>
+    using (SqlConnection con = new SqlConnection(cs))
+    {
+        string query = "INSERT INTO ContactForm (Name, Email, Phone, Address, IdentityNumber) VALUES (@Name, @Email, @Phone, @Address, @IdentityNumber)";
 
-  <system.web>
-    <compilation debug="true" targetFramework="4.7.2" />
-  </system.web>
+        SqlCommand cmd = new SqlCommand(query, con);
+        cmd.Parameters.AddWithValue("@Name", txtName.Text);
+        cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+        cmd.Parameters.AddWithValue("@Phone", txtPhone.Text);
+        cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
+        cmd.Parameters.AddWithValue("@IdentityNumber", txtIdentityNumber.Text);
 
-</configuration>
+        con.Open();
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    Response.Write("<script>alert('Form Submitted Successfully!');</script>");
+}
