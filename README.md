@@ -1,7 +1,4 @@
-CREATE DATABASE Company;
-GO
-
-USE Company;
+USE YourDatabaseName;
 
 CREATE TABLE ContactForm (
     Id INT PRIMARY KEY IDENTITY(1,1),
